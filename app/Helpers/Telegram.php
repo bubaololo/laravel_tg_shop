@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Storage;
 class Telegram {
 
 protected $http;
-protected $bot;
+protected $bot = '5344490439:AAG-iHt_Uay5sgg9W_X1PPq_G9LSirvRQns';
 const url = 'https://api.telegram.org/bot';
 
 
-public function __construct(Http $http, $bot)
+public function __construct(Http $http)
 {
     $this->http = $http;
-    $this->bot = $bot;
+
 }
 
 public function sendMessage($chat_id, $message){
@@ -26,7 +26,16 @@ public function sendMessage($chat_id, $message){
     'text' => $message,
     'parse_mode' => 'html',  
              ]);
+}
+public function editMessage($chat_id, $message, $message_id){
 
+ return   $this->http::post(self::url.$this->bot.'/editMessageText',
+ [
+     'chat_id' => $chat_id,
+    'text' => $message,
+    'parse_mode' => 'html',
+    'message_id' => $message_id
+             ]);
 }
 
 public function sendDocument($chat_id, $file, $reply_id = null){
@@ -45,6 +54,19 @@ public function sendButtons($chat_id, $message, $button) {
        'text' => $message,
        'parse_mode' => 'html',
        'reply_markup'  => $button,
+                ]);
+
+}
+
+public function editButtons($chat_id, $message, $button, $message_id) {
+
+    return   $this->http::post(self::url.$this->bot.'/editMessageText',
+    [
+        'chat_id' => $chat_id,
+       'text' => $message,
+       'parse_mode' => 'html',
+       'reply_markup'  => $button,
+       'message_id' => $message_id
                 ]);
 
 }

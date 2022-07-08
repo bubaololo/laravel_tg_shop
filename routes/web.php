@@ -13,32 +13,12 @@ use App\Helpers\Telegram;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-
-Route::get('/', function (\App\Helpers\Telegram $telegram) {
-
-    $buttons = [
-         'inline_keyboard' => [
-             [
-                 [
-                     'text' => 'button1',
-                     'callback_data' => '1'
-                 ],
-                 [
-                     'text' => 'button2',
-                     'callback_data' => '2'
-                 ]
-             ]
-         ]
-    ];
-
-
- $sendMessage = $telegram->sendButtons(env('REPORT_TELEGRAM_ID'), 'сообщение', json_encode($buttons));
- $sendMessage = json_decode($sendMessage);
- dd($sendMessage);
-
+Route::get('/', function () {
+    return view('welcome');
 });
+// Route::get('/', function (\App\Models\Order $order) {
+//     return view('site.order',['orders' => $order->active()->get()]);
+// });
+// Route::group(['namespace' => 'App\Http\Controllers'], function (){
+//     Route::post('/order/store', 'OrderController@store')->name('order.store');
+// });
